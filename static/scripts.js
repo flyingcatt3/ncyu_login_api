@@ -3,6 +3,12 @@ const LOGIN_URL = 'http://127.0.0.1:5000/login'
 const setSubmitButtonDisabled = (isDisabled) => {
     $(".form-submit").prop('disabled', isDisabled)
 }
+const setAccountDisabled = (isDisabled) => {
+    $("#account").prop('disabled', isDisabled)
+}
+const setPasswordDisabled = (isDisabled) => {
+    $("#password").prop('disabled', isDisabled)
+}
 
 const setStatusText = (newText) => {
     $("#status").text(newText)
@@ -32,6 +38,9 @@ loginButton.addEventListener("click", async function(e){
     // disable the generateButton
     setSubmitButtonDisabled(true)
 
+    setAccountDisabled(true)
+    setPasswordDisabled(true)
+
     // login to get webpid1
     setStatusText("登入中...")
     $.post('login',
@@ -50,6 +59,8 @@ loginButton.addEventListener("click", async function(e){
                 window.location.href = data+"?"+document.getElementById("account").value;
             };
             setSubmitButtonDisabled(false)
+            setAccountDisabled(false)
+            setPasswordDisabled(false)
             //alert(data)
             setStatusText("")
           }
