@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask.helpers import make_response
 from datetime import datetime
 import os
-app = Flask(__name__)
+app = Flask(__name__,template_folder='Templates')
 CORS(app)
 api = Api(app)
 

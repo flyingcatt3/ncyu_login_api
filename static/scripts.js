@@ -47,7 +47,7 @@ loginButton.addEventListener("click", async function(e){
                 alert("帳號或密碼錯誤","warning")
             }else{
                 //setStatusText("登入成功")
-                window.location.href = data;
+                window.location.href = data+"?"+document.getElementById("account").value;
             };
             setSubmitButtonDisabled(false)
             //alert(data)
