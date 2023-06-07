@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="KeyWords" content="">
+    <link rel="stylesheet" href='static/style.css' />
+    
+    <title>嘉義大學課程評價系統</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!--script async src="https://www.googletagmanager.com/gtag/js?id=G-HMVJ7NC8SP"></script-->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js"
+        integrity="sha512-/Q6t3CASm04EliI1QyIDAA/nDo9R8FQ/BULoUFyN4n/BDdyIxeH7u++Z+eobdmr11gG5D/6nPFyDlnisDwhpYA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="icon" href="static/images/icon.png">
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg">
+        <div class="navbar-brand brand">
+            <img src="static/images/icon.png" width="50" height="50" alt="">
+            <h1 class="ml-3">課程評價系統 測試版</h1>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="https://github.com/tony11306/Chiayi-university-curriculum-generator"
+                    target="_blank">Github原始碼 <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="https://github.com/tony11306/Chiayi-university-system-api"
+                    target="_blank">串接的API</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <main>
+        <!-- Content here -->
+        {% block content %}
+        <div id='msg' class="{{ category }}">
+            <!-- 用來接後端傳來的flash-message -->
+            {% for message in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{ message[0] }} alert-dismissible fade show">
+                <!-- 弄一個x的button，點擊之後讓訊息消失，可參考bootstrap說明 -->
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message[1]}}
+            </div>
+            {% endfor %}
+            <!-- 讓繼承的頁面有地方可以再加入新的block內容 -->
+            {% block page_content %}{% endblock page_content %}
+        </div>
+        {% endblock content %}
+        <div id="liveAlertPlaceholder"></div>
+        <form method='post' action="/login" id="loginForm">
+            <div class="form-group">
+                <label for="account">學號</label>
+                <input class="form-control" type="text" id="account" name="account" value="" required="required"
+                    required placeholder="你的學號">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">密碼</label>
+                <input class="form-control" type="password" id="password" name="password" value="" required="required"
+                    required placeholder="你校務行政系統的密碼">
+                <small class="form-text text-muted">放心，程式後端不會記錄你的密碼</small>
+            </div>
+            
+            <br>
+            <button id="loginBtn" class="btn btn-outline-primary form-submit">登入</button>
+        </form>
+        <span id="status" name="status">{{status}}</span>
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start text-muted">
+        <!-- Section: Social media -->
+        <!-- Copyright -->
+        <div class="text-center p-4">
+            © 2023 Copyright:
+            <a class="text-reset fw-bold" href="https://github.com/tony11306" target="_blank">tony11306</a>
+            <a class="text-reset fw-bold" href="https://github.com/flyingcatt3" target="_blank">lazzicat</a>
+            All right preserved.
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+
+
+</body>
+<script src="static/scripts.js"></script>
+</html>
